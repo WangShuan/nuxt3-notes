@@ -1,0 +1,16 @@
+# 指定 Docker Compose 的版本
+version: '3'
+# 定義服務
+services:
+  # 服務名為 nuxt-app
+  nuxt-app:
+    # 使用 node:16.17.0 的 Docker 映像作為基礎
+    image: node:16.17.0
+    # 將本地的 ./.output 目錄映射到容器內的 /app 目錄
+    volumes:
+      - ./.output:/app
+    # 容器的3000端口映射到主機的8080端口
+    ports:
+      - 3000:3000
+    # 啟動應用程序的命令
+    command: node /app/server/index.mjs
