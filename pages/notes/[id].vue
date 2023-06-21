@@ -11,9 +11,9 @@
         </ul>
       </div>
       <div class="col-md-8">
-        <h1 class="mb-1 h2">{{ note.title }}</h1>
-        <span>作者: {{ note.user_name }}</span><span class="ms-3">{{ new Date(note.created_at).toISOString().split('T')[0] }}</span>
-        <div v-html="note.note.replace(/\n/g, ' <br>')" class="my-4 max-w-800"></div>
+        <h1 class="mb-2 h2">{{ note.title }}</h1>
+        <span>作者: <NuxtLink class="link-dark" :to="`/note/${note.user_id}`">{{ note.user_name }}</NuxtLink></span><span class="ms-3">{{ new Date(note.created_at).toISOString().split('T')[0] }}</span>
+        <div v-html="note.note" class="my-4 max-w mx-0"></div>
       </div>
     </div>
   </div>
@@ -48,7 +48,27 @@ if (process.client) {
 
 
 <style>
-.max-w-800 {
-  max-width: 600px;
+* {
+  word-break: break-word;
+}
+
+.max-w {
+  max-width: 750px;
+  width: 100%;
+  margin: auto;
+}
+
+.image-description {
+  margin-top: 5px;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.img-withBackground {
+  background: #cdd1e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
 }
 </style>

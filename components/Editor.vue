@@ -1,43 +1,33 @@
 <template>
-  <div class="container py-5">
-    <h1>New Notes</h1>
-    <form class="border rounded bg-white p-5 mt-5 max-w">
-      <div class="mb-3">
-        <label class="fw-bold h4" for="title">Title</label>
-        <input v-model.trim="title" type="text" class="form-control" id="title">
-      </div>
-      <div id="editorjs"></div>
-      <button @click.prevent="submitNote" class="btn btn-dark px-5 d-block mx-auto mt-3">送出</button>
-    </form>
+  <div class="mb-3">
+    <label class="fw-bold h4" for="title">Title</label>
+    <input v-model="title" type="text" class="form-control" id="title">
   </div>
+  <div id="editorjs"></div>
+  <button @click.prevent="submitNote" class="btn btn-dark px-5 d-block mx-auto mt-3">送出</button>
 </template>
 
-<script setup lang="js">
+<script setup>
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import Paragraph from '@editorjs/paragraph';
 import List from '@editorjs/list';
 import ImageTool from '@editorjs/image';
 
+const props = defineProps(['note']);
+const title = ref('');
+title.value = props.note.title;
 const editor = new EditorJS({
-  holder: 'editorjs',
   autofocus: true,
+  holder: 'editorjs',
+  minHeight: 0,
+  data: JSON.parse(props.note.content),
   tools: {
-    header: {
-      class: Header,
-      inlineToolbar: true,
-    },
-    paragraph: {
-      class: Paragraph,
-      inlineToolbar: true,
-    },
-    list: {
-      class: List,
-      inlineToolbar: true,
-    },
+    header: Header,
+    paragraph: Paragraph,
+    list: List,
     image: {
       class: ImageTool,
-      inlineToolbar: true,
       config: {
         uploader: {
           async uploadByFile(file) {
@@ -62,12 +52,10 @@ const editor = new EditorJS({
   },
 });
 
-const title = ref('');
-const errMsg = ref(false);
-
 const supabase = useSupabaseClient();
-const { user } = useAuth();
 const router = useRouter();
+const route = useRoute();
+const errMsg = ref(false);
 
 const submitNote = async () => {
   if (!title.value) {
@@ -77,10 +65,11 @@ const submitNote = async () => {
   errMsg.value = false;
   const savedData = await editor.save();
   const contentJson = JSON.stringify(savedData);
-  let note = '';
+
+  let content = '';
   savedData.blocks.forEach(item => {
     if (item.type === "paragraph") {
-      note += `<p>${item.data.text}</p>`;
+      content += `<p>${item.data.text}</p>`;
     }
     if (item.type === 'image') {
       let classes = 'img-fluid';
@@ -90,20 +79,20 @@ const submitNote = async () => {
       if (item.data.stretched) {
         classes += ' w-100';
       }
-      note += `<div class="image-block${item.data.withBackground ? ' img-withBackground' : ''}">
+      content += `<div class="image-block${item.data.withBackground ? ' img-withBackground' : ''}">
           <img class="${classes}" src="${item.data.file.url}" alt="${item.data.caption}" />
         </div>
         <p class="image-description">${item.data.caption}</p>`;
     }
     if (item.type === "header") {
       const tag = `h${item.data.level}`;
-      note += `<${tag} class="fs-${item.data.level}">${item.data.text}</${tag}>`;
+      content += `<${tag} class="fs-${item.data.level}">${item.data.text}</${tag}>`;
     }
     if (item.type === 'list') {
       const tag = item.data.style === 'unordered' ? 'ul' : 'ol';
-      const lis = '';
+      let lis = '';
       item.data.items.forEach(li => lis += `<li>${li}</li>`);
-      note += `<${tag}>
+      content += `<${tag}>
         ${lis}
       </${tag}>`;
     }
@@ -111,22 +100,24 @@ const submitNote = async () => {
 
   await supabase
     .from('notes')
-    .insert({
+    .update({
       title: title.value,
-      note: note,
+      note: content,
       content: contentJson,
-      user_id: user.value?.id,
-      user_name: user.value.user_metadata.name
-    });
+    })
+    .eq('id', route.params.id);
 
   router.push('/');
 };
 
-useHead({
-  title: 'Notes - New Note'
-});
-
-definePageMeta({
-  middleware: "auth"
-});
 </script>
+
+<style>
+.codex-editor {
+  width: 100%;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 0 12px;
+  border-radius: 4px;
+}
+</style>

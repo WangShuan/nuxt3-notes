@@ -15,5 +15,12 @@
     "gh-pages": "^5.0.0",
     "gotrue-js": "^0.9.29",
     "nuxt": "^3.5.1"
+  },
+  "dependencies": {
+    "@editorjs/image": "^2.8.1",
+    "@editorjs/editorjs": "^2.27.0",
+    "@editorjs/header": "^2.7.0",
+    "@editorjs/list": "^1.8.0",
+    "@editorjs/paragraph": "^2.9.0"
   }
 }
