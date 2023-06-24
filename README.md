@@ -1,8 +1,11 @@
+---
+tags: Vue.js
+---
+
 # Nuxt3-project6 Notes
 
 原始碼：https://github.com/WangShuan/nuxt3-notes
 線上連結：https://xuan-nuxt3-note.js-app.life/
-筆記連結：https://hackmd.io/9qmpvlMSSK2KahsTDVBD6Q?view
 
 ## 建立與啟動 Nuxt 專案
 
