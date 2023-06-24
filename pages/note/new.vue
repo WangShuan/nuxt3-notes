@@ -22,6 +22,7 @@ import ImageTool from '@editorjs/image';
 const editor = new EditorJS({
   holder: 'editorjs',
   autofocus: true,
+  minHeight: 175,
   tools: {
     header: {
       class: Header,
@@ -131,9 +132,18 @@ definePageMeta({
 });
 </script>
 
-<style scoped>
+<style>
 .fix-nav-padding {
   padding-top: 90px;
   padding-bottom: 30px;
+}
+
+.max-w,
+.ce-block__content,
+.ce-toolbar__content,
+.ce-block--stretched .ce-block__content {
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>

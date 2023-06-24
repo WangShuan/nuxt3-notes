@@ -29,4 +29,8 @@ useHead({
   padding-top: 90px;
   padding-bottom: 30px;
 }
+
+.ce-block--stretched .ce-block__content {
+  max-width: 650px;
+}
 </style>

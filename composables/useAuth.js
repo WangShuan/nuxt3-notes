@@ -1,10 +1,11 @@
 const useAuth = () => {
   const supabase = useSupabaseClient();
-  const user = useState("user", () => null);
+  const user = useSupabaseUser();
+  // const user = useState("user", () => null);
 
-  supabase.auth.onAuthStateChange((e, session) => {
-    user.value = session?.user || null;
-  });
+  // supabase.auth.onAuthStateChange((e, session) => {
+  //   user.value = session?.user || null;
+  // });
 
   const SignUp = async (userData, name) => {
     const { data: u, error } = await supabase.auth.signUp({

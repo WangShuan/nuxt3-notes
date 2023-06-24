@@ -23,11 +23,21 @@ const editor = new EditorJS({
   minHeight: 0,
   data: JSON.parse(props.note.content),
   tools: {
-    header: Header,
-    paragraph: Paragraph,
-    list: List,
+    header: {
+      class: Header,
+      inlineToolbar: true,
+    },
+    paragraph: {
+      class: Paragraph,
+      inlineToolbar: true,
+    },
+    list: {
+      class: List,
+      inlineToolbar: true,
+    },
     image: {
       class: ImageTool,
+      inlineToolbar: true,
       config: {
         uploader: {
           async uploadByFile(file) {
