@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-content-center align-items-center h-100 bg-light">
+  <NuxtLayout name="form">
     <form class="px-3 px-md-5 pt-4 form border rounded bg-white">
       <h1 class="h3 mb-4 text-center">Reset Password</h1>
       <div class="mb-3">
@@ -10,7 +10,7 @@
       <p v-if="authError" class="small my-2 text-danger text-center">{{ authError }}</p>
       <p class="text-muted mb-4 mt-4 small text-center">&copy; 2023 / 僅供學習不含商業用途</p>
     </form>
-  </div>
+  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -33,12 +33,27 @@ const ResetPwd = async () => {
 useHead({
   title: 'Notes - Reset Password'
 })
+
+definePageMeta({
+  layout: false
+})
 </script>
 
-<style>
+<style scoped>
 .form {
   max-width: 400px;
-  width: calc(100% - 60px);
+  width: 100%;
+  margin: auto;
+}
+
+.fix-nav-height {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px;
 }
 
 .message-alert {

@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container fix-nav-padding">
     <h1>New Notes</h1>
     <form class="border rounded bg-white p-5 mt-5 max-w">
       <div class="mb-3">
@@ -130,3 +130,10 @@ definePageMeta({
   middleware: "auth"
 });
 </script>
+
+<style scoped>
+.fix-nav-padding {
+  padding-top: 90px;
+  padding-bottom: 30px;
+}
+</style>

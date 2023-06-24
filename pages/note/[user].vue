@@ -1,5 +1,5 @@
 <template>
-  <div v-if="notes" class="container py-5">
+  <div v-if="notes" class="container fix-nav-padding">
     <div class="d-flex align-items-center mb-4">
       <h1 class="mb-0 me-3">{{ route.params.user === user?.id ? 'My' : notes[0]?.user_name + "'s" }} Notes</h1>
       <NuxtLink v-if="route.params.user === user?.id" class="btn btn-dark" to="/note/new">新增筆記</NuxtLink>
@@ -44,5 +44,10 @@ useHead({
 .navbar-expand .navbar-nav .dropdown-menu {
   padding: 0;
   overflow: hidden;
+}
+
+.fix-nav-padding {
+  padding-top: 90px;
+  padding-bottom: 30px;
 }
 </style>

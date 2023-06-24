@@ -1,9 +1,9 @@
 <template>
-  <div v-if="!isLoading" class="container py-5">
-    <div class="row justify-content-between">
+  <div v-if="!isLoading" class="container fix-nav-padding">
+    <div class="row justify-content-between flex-column-reverse flex-sm-row">
       <Title>Notes - {{ note.title }}</Title>
       <div class="col-md-3">
-        <h2 class="mb-3 h4 text-muted">New Notes</h2>
+        <h2 class="mb-3 h4 text-muted mt-4 mt-sm-0">New Notes</h2>
         <ul class="list-unstyled">
           <li class="mt-3" v-for="(note, i) in newset" :key="i">
             <NoteCard :note="note" />
@@ -47,7 +47,7 @@ if (process.client) {
 </script>
 
 
-<style>
+<style scoped>
 * {
   word-break: break-word;
 }
@@ -70,5 +70,10 @@ if (process.client) {
   justify-content: center;
   align-items: center;
   padding: 15px;
+}
+
+.fix-nav-padding {
+  padding-top: 90px;
+  padding-bottom: 30px;
 }
 </style>

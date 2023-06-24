@@ -6,11 +6,27 @@ services:
   nuxt-app:
     # 使用 node:16.17.0 的 Docker 映像作為基礎
     image: node:16.17.0
+    # 設定容器名稱
+    container_name: 'nuxt3_note'
     # 將本地的 ./.output 目錄映射到容器內的 /app 目錄
     volumes:
       - ./.output:/app
-    # 容器的3000端口映射到主機的8080端口
-    ports:
-      - 3000:3000
+    # 設定命令用的環境變量，以改變啟動應用程序用的 port
+    environment:
+      - NITRO_PORT=8080
     # 啟動應用程序的命令
     command: node /app/server/index.mjs
+    # 主機端口 對到 容器端口(主機網址：xuan:3000)
+    ports:
+      - 3000:8080
+    # 容器端口，docker 內部網路互相連線用的
+    expose: 
+      - 8080
+    # 套用 docker 內部網路
+    networks: 
+      - tunnel
+# 定義 docker 內部網路
+networks:
+  tunnel:
+    name: docker_tunnel
+    external: true

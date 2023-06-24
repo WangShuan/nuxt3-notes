@@ -1,5 +1,5 @@
 <template>
-  <div class="container py-5">
+  <div class="container fix-nav-padding">
     <div class="d-flex align-items-center mb-4">
       <h1 class="mb-0 me-3">All Note</h1>
       <NuxtLink v-if="user" class="btn btn-dark" to="/note/new">新增筆記</NuxtLink>
@@ -41,5 +41,10 @@ if (process.client) {
 .navbar-expand .navbar-nav .dropdown-menu {
   padding: 0;
   overflow: hidden;
+}
+
+.fix-nav-padding {
+  padding-top: 90px;
+  padding-bottom: 30px;
 }
 </style>

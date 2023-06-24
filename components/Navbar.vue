@@ -40,6 +40,7 @@
 const router = useRouter()
 const route = useRoute()
 const { user, LogOut } = useAuth()
+console.log(user)
 const LogoutConfirm = async () => {
   try {
     if (!confirm('確定登出嗎？')) {
@@ -53,7 +54,7 @@ const LogoutConfirm = async () => {
 }
 </script>
 
-<style scoped>
+<style>
 .navbar {
   height: 60px;
 }

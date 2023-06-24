@@ -1,6 +1,6 @@
 <template>
-  <Title>Notes - {{ isLogin ? 'Login' : 'Sign Up' }}</Title>
-  <div class="d-flex justify-content-center align-items-center h-100 bg-light">
+  <NuxtLayout name="form">
+    <Title>Notes - {{ isLogin ? 'Login' : 'Sign Up' }}</Title>
     <form class="px-3 px-md-5 pt-4 form border rounded bg-white">
       <h1 class="h3 mb-4 text-center">Please {{ isLogin ? 'Login' : 'Sign Up' }}</h1>
       <div v-if="!isLogin" class="mb-3">
@@ -23,39 +23,44 @@
       <p v-if="authError" class="small my-2 text-danger text-center">{{ authError }}</p>
       <p class="text-muted mb-4 mt-4 small text-center">&copy; 2023 / 僅供學習不含商業用途</p>
     </form>
-  </div>
+  </NuxtLayout>
 </template>
 
-<script setup lang="ts">
-const router = useRouter()
-const isLogin = ref(true)
-const name = ref("")
-const email = ref("")
-const password = ref("")
-const authError = ref("")
-const { SignUp, LogIn, user } = useAuth()
+<script setup>
+const router = useRouter();
+const isLogin = ref(true);
+const name = ref("");
+const email = ref("");
+const password = ref("");
+const authError = ref("");
+const { SignUp, LogIn, user } = useAuth();
 
 const submitAuth = async () => {
   try {
     const userData = {
       email: email.value,
       password: password.value
-    }
+    };
     if (isLogin.value) {
-      await LogIn(userData)
+      await LogIn(userData);
     } else {
-      await SignUp(userData, name.value)
+      await SignUp(userData, name.value);
     }
-    router.push('/')
+    router.push('/');
   } catch (error) {
-    authError.value = error as string
+    authError.value = error;
   }
-}
+};
+
+definePageMeta({
+  layout: false
+});
 </script>
 
-<style>
+<style scoped>
 .form {
   max-width: 400px;
-  width: calc(100% - 60px);
+  width: 100%;
+  margin: auto;
 }
 </style>
