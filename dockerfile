@@ -2,10 +2,10 @@
 FROM node:16.17.0
 
 # 設定工作目錄
-WORKDIR /app
+WORKDIR /nuxt3-notes-app
 
 # 將 Nuxt.js 的 .output 資料夾複製到工作目錄中
-COPY ./.output /app
+COPY ./.output /nuxt3-notes-app
 
 # 定義埠
 EXPOSE 3000

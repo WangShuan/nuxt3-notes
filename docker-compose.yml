@@ -8,16 +8,16 @@ services:
     image: node:16.17.0
     # 設定容器名稱
     container_name: 'nuxt3_note'
-    # 將本地的 ./.output 目錄映射到容器內的 /app 目錄
+    # 將本地的 ./.output 目錄映射到容器內的 /nuxt3-notes-app 目錄
     volumes:
-      - ./.output:/app
+      - ./.output:/nuxt3-notes-app
     # 設定出問題重啟容器 或 重開機會重啟容器
     restart: unless-stopped
     # 設定命令用的環境變量，以改變啟動應用程序用的 port
     environment:
       - NITRO_PORT=8080
     # 啟動應用程序的命令
-    command: node /app/server/index.mjs
+    command: node /nuxt3-notes-app/server/index.mjs
     # 主機端口 對到 容器端口(主機網址：xuan:3000)
     ports:
       - 3000:8080
