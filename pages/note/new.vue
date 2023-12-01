@@ -5,6 +5,7 @@
       <div class="mb-3">
         <label class="fw-bold h4" for="title">Title</label>
         <input v-model.trim="title" type="text" class="form-control" id="title">
+        <small v-if="errMsg" class="text-danger">請輸入標題！</small>
       </div>
       <div id="editorjs"></div>
       <button @click.prevent="submitNote" class="btn btn-dark px-5 d-block mx-auto mt-3">送出</button>
@@ -102,7 +103,7 @@ const submitNote = async () => {
     }
     if (item.type === 'list') {
       const tag = item.data.style === 'unordered' ? 'ul' : 'ol';
-      const lis = '';
+      let lis = '';
       item.data.items.forEach(li => lis += `<li>${li}</li>`);
       note += `<${tag}>
         ${lis}

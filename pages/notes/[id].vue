@@ -47,7 +47,7 @@ if (process.client) {
 </script>
 
 
-<style scoped>
+<style >
 * {
   word-break: break-word;
 }
@@ -66,10 +66,13 @@ if (process.client) {
 
 .img-withBackground {
   background: #cdd1e0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: 15px;
+}
+
+.img-withBackground img {
+  max-width: 60%;
+  margin: 0 auto;
+  display: block;
 }
 
 .fix-nav-padding {
