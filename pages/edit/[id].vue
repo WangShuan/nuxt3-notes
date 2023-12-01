@@ -2,7 +2,9 @@
   <div class="container fix-nav-padding">
     <h1>Edit Notes</h1>
     <form class="border rounded bg-white p-5 mt-5 max-w">
-      <Editor :note="note" />
+      <ClientOnly>
+        <EditEditor :note="note" />
+      </ClientOnly>
     </form>
   </div>
 </template>
